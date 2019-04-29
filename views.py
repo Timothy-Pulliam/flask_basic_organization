@@ -33,3 +33,6 @@ def show_float(decimal):
     # show a decimal number
     return 'Decimal %.5f' % decimal
 
+@app.route('/product')
+def product():
+    return render_template('product.html')

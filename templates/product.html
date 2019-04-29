@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="/static/product_style.css" />
+</head>
+<body>
+
+  <div class="nav-bar"></div>
+  <div id="app">
+    <div class="product-image">
+      <img v-bind:src="image" v-bind:alt="altText"/>
+    </div>
+
+    <div class="product-info">
+      <h1>[[ product ]]</h1>
+      <p>[[ description ]]</p>
+      <!-- :href is shorthand for v-bind:href -->
+      <a target="_blank" rel="noopener noreferrer" :href="link">See More Socks</a>
+      <p v-if="inventory > 10">In Stock</p>
+      <p v-else-if="inventory <=10 && inventory > 0">Limited Supply!</p>
+      <p v-else>Out of Stock</p>
+      <!-- v-show is more efficient for simply toggling whether
+           an element is displayed or not. (uses CSS "display: none;")-->
+      <p v-show="onSale">On Sale!</p>
+      <ul>
+        <li v-for="detail in details">[[ detail ]]</li>
+      </ul>
+      <ul>
+        <li v-for="size in sizes">[[ size ]]</li>
+      </ul>
+
+      <div v-for="variant in variants" :key="variant.variantId">
+        <!-- We’ll use the v-on directive again, but this time we’ll use its
+        shorthand @ and listen for a mouseover event. -->
+        <p @mouseover="updateProduct(variant.variantImage)">
+          [[ variant.variantColor ]]
+        </p>
+      </div>
+    </div>
+
+    <button v-on:click="addToCart">Add to Cart</button>
+    <button @click="removeFromCart">Save for Later</button>
+
+    <div class="cart">
+      <p>Cart([[ cart ]])</p>
+    </div>
+  </div>
+
+  <!-- development version, includes helpful console warnings -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="/static/main.js"></script>
+</body>
+</html>
